@@ -3,8 +3,17 @@
   "version": "1.0.0",
   "description": "REST API with Node.js on Oracle Database",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "author": "Zyrave",
   "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.5",
+    "oracledb": "^2.3.0"
+  },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
@@ -15,10 +24,5 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "prettier": "^1.13.5"
-  },
-  "dependencies": {
-    "express": "^4.16.3",
-    "morgan": "^1.9.0",
-    "oracledb": "^2.3.0"
   }
 }
