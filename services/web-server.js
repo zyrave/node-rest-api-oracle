@@ -2,9 +2,7 @@ const http = require('http');
 const express = require('express');
 const morgan = require('morgan');
 const webServerConfig = require('../config/web-server');
-const router = require('./router.js');
-
-let httpServer;
+const router = require('./router');
 
 const iso8601RegExp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
 
@@ -15,6 +13,8 @@ function reviveJson(key, value) {
   }
   return value;
 }
+
+let httpServer;
 
 function initialize() {
   return new Promise((resolve, reject) => {
