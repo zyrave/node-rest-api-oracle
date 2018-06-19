@@ -1,18 +1,9 @@
 const http = require('http');
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const webServerConfig = require('../config/web-server');
 const router = require('./router');
-
-const iso8601RegExp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
-
-function reviveJson(key, value) {
-  // revive ISO 8601 date strings to instances of Date
-  if (typeof value === 'string' && iso8601RegExp.test(value)) {
-    return new Date(value);
-  }
-  return value;
-}
 
 let httpServer;
 
@@ -24,12 +15,9 @@ function initialize() {
     // Combines logging into from request and response
     app.use(morgan('combined'));
 
-    // Parse incoming JSON requests and revive JSON.
-    app.use(
-      express.json({
-        reviver: reviveJson,
-      })
-    );
+    // Body parser middleware
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
 
     // Mount the router at /api so all its routes start with /api
     app.use('/api', router);
