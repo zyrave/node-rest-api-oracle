@@ -1,19 +1,16 @@
 const oracledb = require('oracledb');
-const dbConfig = require('../config/database');
 
-async function initialize() {
-  await oracledb.createPool(dbConfig.hrPool);
-}
+const config = require('../config');
 
-module.exports.initialize = initialize;
+exports.initialize = async function initialize() {
+  await oracledb.createPool(config.db);
+};
 
-async function close() {
+exports.close = async function close() {
   await oracledb.getPool().close();
-}
+};
 
-module.exports.close = close;
-
-function simpleExecute(statement, binds = [], opts = {}) {
+exports.simpleExecute = function simpleExecute(statement, binds = [], opts = {}) {
   return new Promise(async (resolve, reject) => {
     let conn;
 
@@ -32,11 +29,9 @@ function simpleExecute(statement, binds = [], opts = {}) {
         try {
           await conn.close();
         } catch (err) {
-          console.log(err);
+          console.error(err);
         }
       }
     }
   });
-}
-
-module.exports.simpleExecute = simpleExecute;
+};
